@@ -1,0 +1,29 @@
+Todolist
+--------
+
+__Tiny Toy Demo__
+
+Reformat a todo-list with the command `:TodoFormat`
+
+**`:TodoFormat` Options:**
+
+* `missing=`
+** `ignore`   -- Don't render missing nodes (DEFAULT. Rendered result
+   resembles original source)
+** `fill`     -- Render missing nodes (TODO: set missing text as another
+   attribute)
+** `collapse` -- Don't render missing nodes and collapse children to
+   commence at missing node's depth.
+
+* `completion=`
+** `fractional` -- Render completions as n/m (e.g `[1/2]`)
+*** NOTE: Where n==m (e.g. `[2/2]`), completion converted to `[x]`
+** `percentage` -- Render completions as n % (e.g. `25%`)
+*** NOTE: 100% is converted to `[x]`
+
+There is also a hard-coded normal map, `<leader>lf` that calls
+`:TodoFormat` on the current paragraph text-object.
+
+To make `<leader>lf` more useful, the command `:TodoFormatDefaults` will
+remember the `missing=` and `completion=` options you provide it for
+subsequent `:TodoFormat` calls.
