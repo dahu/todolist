@@ -1,0 +1,66 @@
+# Simple Nested Test Cases
+
+Given todolist (Nested list without completion indicators):
+  * First item
+  ** Second item
+  *** Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [0/1] First item
+  ** [0/1] Second item
+  *** [ ] Third item
+
+Given todolist (Nested list with uncompleted completion indicators):
+  * [ ] First item
+  ** [ ] Second item
+  *** [ ] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [0/1] First item
+  ** [0/1] Second item
+  *** [ ] Third item
+
+Given todolist (Nested list with over-wide uncompleted completion indicators):
+  * [   ] First item
+  ** [   ] Second item
+  *** [   ] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [0/1] First item
+  ** [0/1] Second item
+  *** [ ] Third item
+
+Given todolist (Nested list with empty completion indicators):
+  * [] First item
+  ** [] Second item
+  *** [] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [0/1] First item
+  ** [0/1] Second item
+  *** [ ] Third item
+
+Given todolist (Nested list with completed completion indicators):
+  * [x] First item
+  ** [x] Second item
+  *** [x] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [x] First item
+  ** [x] Second item
+  *** [x] Third item

@@ -1,0 +1,7 @@
+filetype off
+set rtp+=../,/home/arthurb/.vim/bundle/vendor/vader.vim
+filetype plugin indent on
+syntax enable
+set nomore
+set noswapfile
+set viminfo=

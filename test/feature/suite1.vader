@@ -1,0 +1,66 @@
+# Simple Test Cases
+
+Given todolist (Flat list without completion indicators):
+  * First item
+  * Second item
+  * Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [ ] First item
+  * [ ] Second item
+  * [ ] Third item
+
+Given todolist (Flat list with uncompleted completion indicators):
+  * [ ] First item
+  * [ ] Second item
+  * [ ] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [ ] First item
+  * [ ] Second item
+  * [ ] Third item
+
+Given todolist (Flat list with over-wide uncompleted completion indicators):
+  * [   ] First item
+  * [   ] Second item
+  * [   ] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [ ] First item
+  * [ ] Second item
+  * [ ] Third item
+
+Given todolist (Flat list with empty completion indicators):
+  * [] First item
+  * [] Second item
+  * [] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [ ] First item
+  * [ ] Second item
+  * [ ] Third item
+
+Given todolist (Flat list with completed completion indicators):
+  * [x] First item
+  * [x] Second item
+  * [x] Third item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [x] First item
+  * [x] Second item
+  * [x] Third item

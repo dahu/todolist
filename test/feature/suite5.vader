@@ -1,0 +1,105 @@
+# Completed Indicators Test Cases
+
+Given todolist (Nested list with partial completion indicators):
+  * First item
+  ** Second item
+  *** Third item
+  *** [x] Fourth item
+  * Fifth item
+
+Execute:
+  %TodoFormat completion=percentage
+
+Expect:
+  * [0 %] First item
+  ** [50 %] Second item
+  *** [ ] Third item
+  *** [x] Fourth item
+  * [ ] Fifth item
+
+Given todolist (Nested list with partial completion indicators):
+  * [ ] Do this first;
+  * [1/2] Then this other thing.
+  ** [x] Sub task 2
+  ** [ ] Sub task 3
+  * [0/2] And then this other.
+  ** [2/3] sub task 4
+  *** [x] hey
+  *** [ ] three one
+  *** [x] three two
+  ** [ ] Another level 3
+  * [x] one last
+
+Execute:
+  %TodoFormat completion=percentage
+
+Expect:
+  * [ ] Do this first;
+  * [50 %] Then this other thing.
+  ** [x] Sub task 2
+  ** [ ] Sub task 3
+  * [0 %] And then this other.
+  ** [66 %] sub task 4
+  *** [x] hey
+  *** [ ] three one
+  *** [x] three two
+  ** [ ] Another level 3
+  * [x] one last
+
+Given todolist (Nested list with partial completion indicators):
+  * [ ] Do this first;
+  * [ ] Then this other thing.
+  ** [x] Sub task 2
+  ** [ ] Sub task 3
+  * [ ] And then this other.
+  ** [ ] sub task 4
+  *** [x] hey
+  *** [ ] three one
+  *** [x] three two
+  ** [ ] Another level 3
+  * [x] one last
+
+Execute:
+  %TodoFormat completion=percentage
+
+Expect:
+  * [ ] Do this first;
+  * [50 %] Then this other thing.
+  ** [x] Sub task 2
+  ** [ ] Sub task 3
+  * [0 %] And then this other.
+  ** [66 %] sub task 4
+  *** [x] hey
+  *** [ ] three one
+  *** [x] three two
+  ** [ ] Another level 3
+  * [x] one last
+
+Given todolist (Nested list with percentage completion indicators):
+  * [ ] Do this first;
+  * [50 %] Then this other thing.
+  ** [x] Sub task 2
+  ** [ ] Sub task 3
+  * [0 %] And then this other.
+  ** [66 %] sub task 4
+  *** [x] hey
+  *** [ ] three one
+  *** [x] three two
+  ** [ ] Another level 3
+  * [x] one last
+
+Execute:
+  %TodoFormat completion=fractional
+
+Expect:
+  * [ ] Do this first;
+  * [1/2] Then this other thing.
+  ** [x] Sub task 2
+  ** [ ] Sub task 3
+  * [0/2] And then this other.
+  ** [2/3] sub task 4
+  *** [x] hey
+  *** [ ] three one
+  *** [x] three two
+  ** [ ] Another level 3
+  * [x] one last

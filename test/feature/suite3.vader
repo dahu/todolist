@@ -1,0 +1,143 @@
+# Complex Nested Test Cases
+
+Given todolist (Nested list with deep return):
+  * First item
+  ** Second item
+  *** Third item
+  * Fourth item
+
+Execute:
+  1,4TodoFormat
+
+Expect:
+  * [0/1] First item
+  ** [0/1] Second item
+  *** [ ] Third item
+  * [ ] Fourth item
+
+Given todolist (Nested list with missing second-level and default 'ignore' strategy):
+  * First item
+  *** Third item
+  * Fourth item
+
+Execute:
+  1,3TodoFormat
+
+Expect:
+  * [0/1] First item
+  *** [ ] Third item
+  * [ ] Fourth item
+
+Given todolist (Nested list with missing second-level and explicit 'ignore' strategy):
+  * First item
+  *** Third item
+  * Fourth item
+
+Execute:
+  1,3TodoFormat missing=ignore
+
+Expect:
+  * [0/1] First item
+  *** [ ] Third item
+  * [ ] Fourth item
+
+Given todolist (Nested list with missing second-level and 'fill' strategy):
+  foo
+  * First item
+  *** Third item
+  * Fourth item
+  bar
+
+Execute:
+  2,4TodoFormat missing=fill
+
+Expect:
+  foo
+  * [0/1] First item
+  ** [0/1]
+  *** [ ] Third item
+  * [ ] Fourth item
+  bar
+
+Given todolist (Nested list with missing second-level and 'collapse' strategy):
+  foo
+  * First item
+  *** Third item
+  * Fourth item
+  bar
+
+Execute:
+  2,4TodoFormat missing=collapse
+
+Expect:
+  foo
+  * [0/1] First item
+  ** [ ] Third item
+  * [ ] Fourth item
+  bar
+
+Given todolist (Nested list with missing second-level and 'collapse' strategy):
+  foo
+  * First item
+  ***** Third item
+  * Fourth item
+  bar
+
+Execute:
+  2,4TodoFormat missing=collapse
+
+Expect:
+  foo
+  * [0/1] First item
+  ** [ ] Third item
+  * [ ] Fourth item
+  bar
+
+Given todolist (Nested list with missing second-level and 'collapse' strategy):
+  foo
+  * First item
+  ***** Third item
+  **** Fourth item
+  *** Fifth item
+  ** Sixth item
+  * Seventh item
+  bar
+
+Execute:
+  2,7TodoFormat missing=collapse
+
+Expect:
+  foo
+  * [0/2] First item
+  ** [0/2] Third item
+  *** [ ] Fourth item
+  *** [ ] Fifth item
+  ** [ ] Sixth item
+  * [ ] Seventh item
+  bar
+
+Given todolist (Nested list with missing second-level and 'collapse' strategy):
+  foo
+  * First item
+  ***** Third item
+  * Fourth item
+  *** Fifth item
+  ***** Sixth item
+  **** Seventh item
+  * Eighth item
+  bar
+
+Execute:
+  2,8TodoFormat missing=collapse
+
+Expect:
+  foo
+  * [0/1] First item
+  ** [ ] Third item
+  * [0/1] Fourth item
+  ** [0/1] Fifth item
+  *** [0/1] Sixth item
+  **** [ ] Seventh item
+  * [ ] Eighth item
+  bar
+
