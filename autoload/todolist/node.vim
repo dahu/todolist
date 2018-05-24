@@ -26,10 +26,13 @@ set cpo&vim
 "endif
 "let g:loaded_lib_node = 1
 
+let s:node_id = 1
 " Library Interface: {{{1
 function! todolist#node#new(level, completed, text, ...)
+  let s:node_id += 1
   let node = {}
   let node.parent = node
+  let node.id = s:node_id
   let node.level = a:level
   let node.completed = a:completed
   let node.text = a:text

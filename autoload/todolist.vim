@@ -132,11 +132,28 @@ function! todolist#new(...) abort
   endfunc
 
   func! todo.render() abort
+    let self.result = []
     return self.traverse_nodes('inorder', self.render_node)
+  endfunc
+
+  func! todo.graph(root) abort
+    let self.result = []
+    call add(self.result, "digraph V {")
+    call add(self.result, "rankdir=TD;")
+    call add(self.result, "node [shape=box];")
+    call add(self.result, '"0" [label="' . a:root . '"];')
+    call self.traverse_nodes('inorder', self.graph_node)
+    call add(self.result, "}")
+    return self.result
   endfunc
 
   func! todo.render_node(node) abort
     call add(self.result, repeat('*', self.depth) . ' [' . a:node.completed . ']' . (len(a:node.text) ? ' ' . a:node.text : ''))
+  endfunc
+
+  func! todo.graph_node(node) abort
+    call add(self.result, '"' . self.parent . '" -> "' . a:node.id . '"')
+    call add(self.result, '"' . a:node.id . '" [label="[' . a:node.completed . ']' . (len(a:node.text) ? ' ' . a:node.text : '') . '"];')
   endfunc
 
   func! todo.calculate_completion() abort
@@ -166,9 +183,12 @@ function! todolist#new(...) abort
     if a:method == 'inorder' && !skip
       call call(a:action, [a:node])
     endif
+    let parent = self.parent
+    let self.parent = a:node.id
     for child in a:node.children
       call self.traverse_node(child, a:method, a:action)
     endfor
+    let self.parent = parent
     if a:method == 'depthfirst' && !skip
       call call(a:action, [a:node])
     endif
@@ -177,11 +197,10 @@ function! todolist#new(...) abort
 
   func! todo.traverse_nodes(method, action) abort
     let self.depth = 0
-    let self.result = []
+    let self.parent = 0
     for child in self.root.children
       call self.traverse_node(child, a:method, a:action)
     endfor
-    return self.result
   endfunc
 
   return todo
